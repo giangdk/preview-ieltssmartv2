@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; font-family:Manrope,sans-serif; color:#0E2149; background:#fff; }
+  a { color:#1D1B7F; text-decoration:none; } a:hover { color:#4BC4F9; }
+  html { scroll-behavior:smooth; }
+  :focus-visible { outline:2px solid #1D1B7F; outline-offset:2px; border-radius:4px; }
+  @keyframes heroInTL { from { opacity:0; transform:translate(-260px,-160px) rotate(6deg); } to { opacity:.3; transform:translate(0,0) rotate(6deg); } }
+  @keyframes heroInTR { from { opacity:0; transform:translate(260px,-160px) rotate(-6deg); } to { opacity:.3; transform:translate(0,0) rotate(-6deg); } }
+  @keyframes heroInBL { from { opacity:0; transform:translate(-260px,160px) rotate(-6deg); } to { opacity:.3; transform:translate(0,0) rotate(-6deg); } }
+  @keyframes heroInBR { from { opacity:0; transform:translate(260px,160px) rotate(6deg); } to { opacity:.3; transform:translate(0,0) rotate(6deg); } }
+  @keyframes barGrow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+  @keyframes dotPulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+  @keyframes revealUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+  @keyframes marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  @keyframes blobDrift { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(40px,-30px) scale(1.08); } }
+  @keyframes quoteFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+  @keyframes underlineSweep { 0% { transform:scaleX(0); transform-origin:left; opacity:1; } 45% { transform:scaleX(1); transform-origin:left; } 55% { transform:scaleX(1); transform-origin:right; } 90% { transform:scaleX(0); transform-origin:right; opacity:1; } 100% { transform:scaleX(0); transform-origin:right; opacity:0; } }
+  @keyframes penStroke { 0% { stroke-dashoffset:100; } 45%,55% { stroke-dashoffset:0; } 92%,100% { stroke-dashoffset:-100; } }
+  @keyframes lineFlow { from { stroke-dashoffset:1000; } to { stroke-dashoffset:-1000; } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } html { scroll-behavior:auto; } }
+</style>
+</helmet>
+
+<div style="font-family:Manrope,sans-serif; color:#0E2149; overflow-x:clip;">
+
+<!-- [0] UTILITY BAR -->
+<!-- [1] HEADER -->
+<header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(14,33,73,.08);">
+  <div style="{{ utilBar }}">
+    <span style="color:rgba(255,255,255,.75);">Hotline: <strong style="font-weight:600; color:#fff;">037 416 8445</strong></span>
+    <a href="Hoc Sinh.dc.html" style="color:rgba(75,196,249,.9); font-weight:500; font-size:inherit;" style-hover="color:#fff;">Bạn là học sinh? Luyện đề tại IELTS88 →</a>
+  </div>
+  <div style="max-width:1360px; margin:0 auto; padding:12px 24px; min-height:44px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+    <a href="#top" style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
+      <img src="logo-ielts-smart.jpg" alt="IELTS SMART" style="width:38px; height:38px; border-radius:8px; display:block;">
+    </a>
+    <nav style="display:flex; gap:6px; margin:0 auto; font-size:15px; font-weight:500; flex-wrap:wrap; align-items:center; justify-content:center;">
+      <a href="#top" style="color:#0E2149; padding:8px 10px; border-radius:4px;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Trang chủ</a>
+      <div style="position:relative;" onMouseEnter="{{ enterGiaiphap }}" onMouseLeave="{{ leaveMenu }}">
+        <a href="Giai Phap.dc.html" style="color:#0E2149; padding:8px 10px; border-radius:4px; display:inline-flex; align-items:center; gap:5px;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Giải pháp<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <sc-if value="{{ mGiaiphap }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; top:100%; left:0; padding-top:8px; z-index:60;">
+            <div style="background:#fff; border-radius:6px; box-shadow:0 20px 48px rgba(14,33,73,.14); padding:8px; min-width:240px; display:grid; gap:2px;">
+              <a href="Cham Bai AI.dc.html" style="color:#0E2149; padding:10px 14px; border-radius:4px; display:block; white-space:nowrap;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Chấm IELTS tự động</a><a href="Giao Bai Tap.dc.html#quan-ly-lop" style="color:#0E2149; padding:10px 14px; border-radius:4px; display:block; white-space:nowrap;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Quản lý lớp</a><a href="Giai Phap.dc.html#test-dau-vao" style="color:#0E2149; padding:10px 14px; border-radius:4px; display:block; white-space:nowrap;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Test đầu vào &amp; thi thử</a>
+              
+              
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <a href="Bang Gia.dc.html" style="color:#0E2149; padding:8px 10px; border-radius:4px; display:inline-flex; align-items:center; gap:5px;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Bảng giá</a>
+      <a href="Tai Nguyen.dc.html" style="color:#0E2149; padding:8px 10px; border-radius:4px; display:inline-flex; align-items:center; gap:5px;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Về chúng tôi</a>
+      <a href="Blog.dc.html" style="color:#0E2149; padding:8px 10px; border-radius:4px; display:inline-flex; align-items:center; gap:5px;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Tin tức</a>
+      <a href="Hoc Sinh.dc.html" style="color:#0E2149; padding:8px 10px; border-radius:4px; display:inline-flex; align-items:center; gap:5px;" style-hover="background:rgba(29,27,127,.06); color:#1D1B7F;">Học sinh</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:14px; flex-shrink:0;">
+      <div style="display:flex; font-size:13px; font-weight:600; background:rgba(14,33,73,.06); border-radius:4px; overflow:hidden;">
+        <span style="padding:5px 9px; background:#1D1B7F; color:#fff;">VI</span>
+        <span style="padding:5px 9px; color:rgba(14,33,73,.5);">EN</span>
+      </div>
+      <a href="#cham-thu" style="background:linear-gradient(135deg,#1D1B7F 0%,#3B49D8 100%); color:#fff; font-weight:600; font-size:15px; padding:11px 20px; border-radius:6px; display:inline-block;" style-hover="background:#0E2149; color:#fff;">Đặt lịch demo</a>
+    </div>
+  </div>
+</header>
+
+<!-- [3] HERO (chứa [2] announcement pill) -->
+<section id="top" style="background:linear-gradient(180deg,#FFFFFF 0%,#EFF7FD 100%); border-bottom:1px solid rgba(14,33,73,.06); padding:64px 24px 96px; position:relative; overflow:hidden; min-height:100vh; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+  <img id="hf-tl" src="shots/dashboard-trung-tam.png" alt="" aria-hidden="true" style="position:absolute; top:36px; left:-70px; width:min(26vw,380px); border-radius:6px; box-shadow:0 14px 28px rgba(14,33,73,.12); transform:rotate(6deg); animation:heroInTL .9s cubic-bezier(.2,.8,.2,1) backwards; will-change:transform,opacity; opacity:.3; pointer-events:none;">
+  <img id="hf-tr" src="shots/quan-ly-bai-tap.jpg" alt="" aria-hidden="true" style="position:absolute; top:36px; right:-70px; width:min(26vw,380px); border-radius:6px; box-shadow:0 14px 28px rgba(14,33,73,.12); transform:rotate(-6deg); animation:heroInTR .9s cubic-bezier(.2,.8,.2,1) backwards; will-change:transform,opacity; opacity:.3; pointer-events:none;">
+  <img id="hf-bl" src="shots/ket-qua-writing.png" alt="" aria-hidden="true" style="position:absolute; top:340px; left:-70px; width:min(26vw,380px); border-radius:6px; box-shadow:0 14px 28px rgba(14,33,73,.12); transform:rotate(-6deg); animation:heroInBL .9s cubic-bezier(.2,.8,.2,1) backwards; will-change:transform,opacity; opacity:.3; pointer-events:none;">
+  <img id="hf-br" src="shots/ket-qua-speaking.png" alt="" aria-hidden="true" style="position:absolute; top:340px; right:-70px; width:min(26vw,380px); border-radius:6px; box-shadow:0 14px 28px rgba(14,33,73,.12); transform:rotate(6deg); animation:heroInBR .9s cubic-bezier(.2,.8,.2,1) backwards; will-change:transform,opacity; opacity:.3; pointer-events:none;">
+  <div style="max-width:1360px; width:100%; margin:0 auto; position:relative;">
+
+    <div style="max-width:960px; margin:0 auto; text-align:center;">
+      <h1 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(36px,4.6vw,60px); line-height:1.08; letter-spacing:-0.02em; margin:0 0 24px; color:#0E2149; text-wrap:pretty;">Hệ thống duy nhất trung tâm bạn cần để <span style="background:linear-gradient(90deg,#1D1B7F 0%,#2E9BE8 100%); -webkit-background-clip:text; background-clip:text; color:transparent;">luyện và chấm IELTS</span></h1>
+      <p style="font-size:18px; line-height:1.65; color:rgba(14,33,73,.75); margin:0 auto 24px; max-width:62ch; text-wrap:pretty;">Phòng thi ảo, kho đề luôn mới và chấm chữa Writing – Speaking tự động theo tiêu chí IELTS tiêu chuẩn — giáo viên giữ quyền duyệt cuối.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:32px;">
+        <span style="display:inline-block; border:1px solid rgba(29,27,127,.35); color:#1D1B7F; font-size:14px; font-weight:600; padding:6px 14px; border-radius:999px;">Phòng thi ảo</span>
+        <span style="display:inline-block; border:1px solid rgba(29,27,127,.35); color:#1D1B7F; font-size:14px; font-weight:600; padding:6px 14px; border-radius:999px;">Chấm bài A.I</span>
+        <span style="display:inline-block; border:1px solid rgba(29,27,127,.35); color:#1D1B7F; font-size:14px; font-weight:600; padding:6px 14px; border-radius:999px;">Giao bài tập</span>
+        <span style="display:inline-block; border:1px solid rgba(29,27,127,.35); color:#1D1B7F; font-size:14px; font-weight:600; padding:6px 14px; border-radius:999px;">Báo cáo band</span>
+      </div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+        <a href="#cham-thu" style="background:linear-gradient(135deg,#1D1B7F 0%,#3B49D8 100%); color:#fff; font-weight:600; font-size:16px; padding:15px 28px; border-radius:6px; display:inline-block;" style-hover="background:#0E2149; color:#fff;">Đặt lịch demo ngay</a>
+        <a href="#cham-thu" style="border:1px solid rgba(14,33,73,.2); color:#0E2149; font-weight:600; font-size:16px; padding:15px 28px; border-radius:6px; display:inline-block;" style-hover="border-color:#1D1B7F; color:#1D1B7F;">Liên hệ tư vấn</a>
+      </div>
+    </div>
+      </div>
+</section>
+
+<!-- [01] VẤN ĐỀ -->
+<section id="van-de" style="padding:112px 40px; background:linear-gradient(180deg,#FFFFFF 0%,#F2F1FC 100%); border-bottom:1px solid rgba(14,33,73,.06); position:relative; overflow:hidden;">
+  <div aria-hidden="true" style="position:absolute; top:-120px; left:-140px; width:420px; height:420px; border-radius:50%; background:#3B49D8; opacity:.07; filter:blur(70px); animation:blobDrift 16s ease-in-out infinite; pointer-events:none;"></div>
+  <div aria-hidden="true" style="position:absolute; bottom:-160px; right:-120px; width:460px; height:460px; border-radius:50%; background:#4BC4F9; opacity:.1; filter:blur(80px); animation:blobDrift 20s ease-in-out infinite reverse; pointer-events:none;"></div>
+  <div style="max-width:1140px; margin:0 auto; position:relative;">
+    <div style="margin-bottom:16px; text-align:center; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;"><span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:rgba(14,33,73,.55);">Vấn đề</span></div>
+    <h2 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(26px,2.9vw,40px); line-height:1.18; margin:0 auto 44px; max-width:28ch; text-align:center; text-wrap:pretty; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 5% entry 45%;">Luyện và chấm IELTS thủ công đang làm khó <span style="color:#1D1B7F; position:relative; display:inline-block;">cả trung tâm<svg aria-hidden="true" viewBox="0 0 200 20" preserveAspectRatio="none" style="position:absolute; left:-4%; width:108%; bottom:-14px; height:16px; overflow:visible; pointer-events:none;"><defs><linearGradient id="vdPen" x1="0" x2="1"><stop offset="0" stop-color="#1D1B7F"></stop><stop offset="1" stop-color="#4BC4F9"></stop></linearGradient></defs><path d="M3,13 C40,5 75,4 110,8 C140,11 165,12 197,6" fill="none" stroke="url(#vdPen)" stroke-width="3.2" stroke-linecap="round" pathLength="100" stroke-dasharray="100 100" style="animation:penStroke 2.8s cubic-bezier(.65,0,.35,1) infinite;"></path></svg></span></h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;">
+      <div style="background:#fff; border-radius:6px; padding:0; box-shadow:0 10px 22px rgba(14,33,73,.07); overflow:hidden; transition:transform .25s ease, box-shadow .25s ease; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 45%;" style-hover="transform:translateY(-4px); box-shadow:0 16px 36px rgba(14,33,73,.11);">
+        <div style="height:3px; background:#1D1B7F; transform-origin:left; animation:barGrow linear both; animation-timeline:view(); animation-range:entry 30% cover 35%;"></div>
+        <div style="padding:30px; position:relative;">
+          <div aria-hidden="true" style="position:absolute; top:14px; right:22px; font-family:Georgia,serif; font-size:64px; line-height:1; color:#1D1B7F; opacity:.12; animation:quoteFloat 5s ease-in-out infinite;">&ldquo;</div>
+          <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:18px; margin-bottom:14px;">Chủ trung tâm</div>
+          <p style="font-size:15.5px; line-height:1.6; color:#0E2149; font-style:italic; margin:0 0 16px;">&ldquo;Muốn mở thêm lớp là phải tuyển thêm người chấm.&rdquo;</p>
+          <div style="border-top:1px solid rgba(14,33,73,.07); padding-top:16px; font-size:14.5px; line-height:1.62; color:rgba(14,33,73,.68);">Trả bài chậm 2–3 ngày là học viên bắt đầu nản. Muốn cho cả khoá thi thử một lần thì lại thiếu phòng, thiếu người coi.</div>
+        </div>
+      </div>
+      <div style="background:#fff; border-radius:6px; padding:0; box-shadow:0 10px 22px rgba(14,33,73,.07); overflow:hidden; transition:transform .25s ease, box-shadow .25s ease; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 10% entry 60%;" style-hover="transform:translateY(-4px); box-shadow:0 16px 36px rgba(14,33,73,.11);">
+        <div style="height:3px; background:#3B49D8; transform-origin:left; animation:barGrow linear both; animation-timeline:view(); animation-range:entry 30% cover 35%;"></div>
+        <div style="padding:30px; position:relative;">
+          <div aria-hidden="true" style="position:absolute; top:14px; right:22px; font-family:Georgia,serif; font-size:64px; line-height:1; color:#3B49D8; opacity:.12; animation:quoteFloat 5s ease-in-out infinite;">&ldquo;</div>
+          <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:18px; margin-bottom:14px;">Quản lý chuyên môn</div>
+          <p style="font-size:15.5px; line-height:1.6; color:#0E2149; font-style:italic; margin:0 0 16px;">&ldquo;Tôi không biết giáo viên nào đang chấm lỏng tay, ai chấm chặt.&rdquo;</p>
+          <div style="border-top:1px solid rgba(14,33,73,.07); padding-top:16px; font-size:14.5px; line-height:1.62; color:rgba(14,33,73,.68);">Học viên thắc mắc điểm mà mình cũng không biết ai chấm, ai đã sửa. Mỗi cơ sở lại chấm một kiểu.</div>
+        </div>
+      </div>
+      <div style="background:#fff; border-radius:6px; padding:0; box-shadow:0 10px 22px rgba(14,33,73,.07); overflow:hidden; transition:transform .25s ease, box-shadow .25s ease; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 20% entry 75%;" style-hover="transform:translateY(-4px); box-shadow:0 16px 36px rgba(14,33,73,.11);">
+        <div style="height:3px; background:#4BC4F9; transform-origin:left; animation:barGrow linear both; animation-timeline:view(); animation-range:entry 30% cover 35%;"></div>
+        <div style="padding:30px; position:relative;">
+          <div aria-hidden="true" style="position:absolute; top:14px; right:22px; font-family:Georgia,serif; font-size:64px; line-height:1; color:#4BC4F9; opacity:.12; animation:quoteFloat 5s ease-in-out infinite;">&ldquo;</div>
+          <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:18px; margin-bottom:14px;">Giáo viên</div>
+          <p style="font-size:15.5px; line-height:1.6; color:#0E2149; font-style:italic; margin:0 0 16px;">&ldquo;Một bài Writing hay Speaking ngốn của tôi 10–20 phút.&rdquo;</p>
+          <div style="border-top:1px solid rgba(14,33,73,.07); padding-top:16px; font-size:14.5px; line-height:1.62; color:rgba(14,33,73,.68);">Giao bài qua Zalo, thu bài qua Drive, rồi ngồi chấm. 100 bài full test là mất khoảng 33 tiếng.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [02] GIẢI PHÁP -->
+<section id="co-gi" style="padding:112px 40px 0; background:#fff; overflow-x:clip;">
+  <div style="max-width:1140px; margin:0 auto;">
+    <div style="margin-bottom:16px; text-align:center;"><span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:rgba(14,33,73,.55);">Giải pháp</span></div>
+    <h2 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(26px,2.9vw,40px); line-height:1.18; margin:0 auto 12px; max-width:28ch; text-align:center; text-wrap:pretty;">IELTS Smart giúp trung tâm <span style="color:#1D1B7F;">giải quyết những nỗi lo đó</span></h2>
+    <p style="font-size:16.5px; line-height:1.65; color:rgba(14,33,73,.65); margin:0 auto 56px; max-width:58ch; text-align:center;">Vài phút, không cần cài đặt — trung tâm có ngay hệ thống luyện và chấm IELTS như các đơn vị lớn.</p>
+
+    <div style="display:grid; gap:0; margin:0 calc(50% - 50vw);">
+    <div style="position:relative; background:#fff; padding:clamp(56px,7vw,96px) max(40px, calc(50vw - 570px));"><div style="max-width:1140px; margin:0 auto; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 35%;">
+      <div style="display:flex; flex-wrap:wrap; gap:48px; align-items:center;">
+      <div style="flex:1 1 380px; min-width:0;">
+        <div style="display:inline-flex; align-items:center; font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#1D1B7F; border:1px solid #1D1B7F40; background:#1D1B7F0D; border-radius:999px; padding:6px 14px; margin-bottom:16px;">01 · Test đầu vào</div>
+        <h3 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,28px); line-height:1.25; margin:0 0 14px; text-wrap:pretty;">Test đầu vào IELTS: xếp lớp đúng ngay từ buổi đầu</h3>
+        <p style="font-size:15.5px; line-height:1.65; color:rgba(14,33,73,.7); margin:0 0 18px;">Gửi link, học viên làm bài test ngay tại nhà — không cần hẹn lịch lên trung tâm. Có kết quả là tư vấn viên gọi lại ngay, lúc học viên còn đang quan tâm.</p>
+        <div style="display:grid; gap:10px;">
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Học viên tự test tại nhà, không mất thời gian chờ lịch hẹn</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Band ước tính 4 kỹ năng ngay khi nộp; Writing, Speaking do AI chấm</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Tư vấn dựa trên kết quả thật → chốt lớp nhanh hơn</span></div>
+        </div>
+        <a href="Giai Phap.dc.html#test-dau-vao" style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#1D1B7F; display:inline-flex; align-items:center; gap:8px; margin-top:20px; padding-bottom:3px; border-bottom:2px solid rgba(29,27,127,.25);" style-hover="color:#3B49D8; border-bottom:2px solid #3B49D8;">Xem test đầu vào →</a>
+      </div>
+      <div style="flex:1.1 1 420px; min-width:0;"><div style="aspect-ratio:16/10; border-radius:6px; overflow:hidden; box-shadow:0 10px 22px rgba(14,33,73,.08); background:#fff;"><image-slot id="sol-test-dau-vao" shape="rect" placeholder="Kết quả test đầu vào: band 4 kỹ năng + gợi ý lớp"></image-slot></div></div>
+    </div>
+    
+    </div>
+    </div>
+    <div style="position:relative; background:#F8F9FC; padding:clamp(56px,7vw,96px) max(40px, calc(50vw - 570px));"><div style="max-width:1140px; margin:0 auto; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 35%;">
+      <div style="display:flex; flex-wrap:wrap-reverse; gap:48px; align-items:center;">
+      <div style="flex:1.1 1 420px; min-width:0;"><div style="aspect-ratio:16/10; border-radius:6px; overflow:hidden; box-shadow:0 10px 22px rgba(14,33,73,.08);"><img src="shots/phong-thi-listening.jpg" alt="Giao diện phòng thi ảo với đồng hồ đếm ngược" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;"></div></div>
+      <div style="flex:1 1 380px; min-width:0;">
+        <div style="display:inline-flex; align-items:center; font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#3B49D8; border:1px solid #3B49D840; background:#3B49D80D; border-radius:999px; padding:6px 14px; margin-bottom:16px;">02 · Phòng thi ảo</div>
+        <h3 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,28px); line-height:1.25; margin:0 0 14px; text-wrap:pretty;">Phòng thi ảo: thi thử IELTS trên máy như thi thật</h3>
+        <div style="display:grid; gap:10px;">
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Giao diện giống bài thi trên máy — học viên quen thao tác và tâm lý trước ngày thi</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Đáp án đánh dấu ngay trên bài đọc, bài nghe, kèm giải thích — hiểu vì sao sai</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Kho đề cập nhật liên tục, bám sát đề thật, có sẵn đáp án</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Hàng nghìn lượt thi cùng lúc vẫn ổn định; trang thi mang logo trung tâm</span></div>
+        </div>
+        <a href="Giai Phap.dc.html#thi-thu-ielts" style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#1D1B7F; display:inline-flex; align-items:center; gap:8px; margin-top:20px; padding-bottom:3px; border-bottom:2px solid rgba(29,27,127,.25);" style-hover="color:#3B49D8; border-bottom:2px solid #3B49D8;">Xem test đầu vào &amp; thi thử →</a>
+      </div>
+    </div>
+    
+    </div>
+    </div>
+    <div style="position:relative; background:#fff; padding:clamp(56px,7vw,96px) max(40px, calc(50vw - 570px));"><div style="max-width:1140px; margin:0 auto; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 35%;">
+      <div style="display:flex; flex-wrap:wrap; gap:48px; align-items:center;">
+      <div style="flex:1 1 380px; min-width:0;">
+        <div style="display:inline-flex; align-items:center; font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#0092C8; border:1px solid #0092C840; background:#0092C80D; border-radius:999px; padding:6px 14px; margin-bottom:16px;">03 · Chấm bằng AI</div>
+        <h3 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,28px); line-height:1.25; margin:0 0 14px; text-wrap:pretty;">Giao bài và chấm tự động: chấm Writing &amp; Speaking bằng AI</h3>
+        <p style="font-size:15.5px; line-height:1.65; color:rgba(14,33,73,.7); margin:0 0 18px;">Giao bài cho cả lớp hoặc từng học viên. Bài nộp được AI chấm ngay theo tiêu chí chuẩn kỳ thi IELTS thật, lỗi tô màu trong bài — giáo viên tiết kiệm đến 90% thời gian và luôn duyệt cuối.</p>
+        <div style="display:grid; gap:10px;">
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Chọn chấm hoàn toàn bằng AI hoặc AI hỗ trợ một phần</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Giáo viên thêm nhận xét dễ như soạn văn bản</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Báo cáo band 4 tiêu chí, số từ, lỗi và bản sửa — gửi ngay cho học viên, phụ huynh</span></div>
+        </div>
+        <a href="Cham Bai AI.dc.html" style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#1D1B7F; display:inline-flex; align-items:center; gap:8px; margin-top:20px; padding-bottom:3px; border-bottom:2px solid rgba(29,27,127,.25);" style-hover="color:#3B49D8; border-bottom:2px solid #3B49D8;">Xem chấm IELTS bằng AI →</a>
+      </div>
+      <div style="flex:1.1 1 420px; min-width:0;"><div style="aspect-ratio:16/10; border-radius:6px; overflow:hidden; box-shadow:0 10px 22px rgba(14,33,73,.08);"><img src="shots/cham-writing-goc.png" alt="Màn hình chấm Writing: lỗi highlight và báo cáo band 4 tiêu chí" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;"></div></div>
+    </div>
+    
+    </div>
+    </div>
+    <div style="position:relative; background:#F8F9FC; padding:clamp(56px,7vw,96px) max(40px, calc(50vw - 570px));"><div style="max-width:1140px; margin:0 auto; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 35%;">
+      <div style="display:flex; flex-wrap:wrap-reverse; gap:48px; align-items:center;">
+      <div style="flex:1.1 1 420px; min-width:0;"><div style="aspect-ratio:16/10; border-radius:6px; overflow:hidden; box-shadow:0 10px 22px rgba(14,33,73,.08);"><img src="shots/dashboard-trung-tam.png" alt="Dashboard quản lý: số bài chấm, giờ tiết kiệm, mức nhất quán" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;"></div></div>
+      <div style="flex:1 1 380px; min-width:0;">
+        <div style="display:inline-flex; align-items:center; font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#00947E; border:1px solid #00947E40; background:#00947E0D; border-radius:999px; padding:6px 14px; margin-bottom:16px;">04 · Quản lý lớp</div>
+        <h3 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,28px); line-height:1.25; margin:0 0 14px; text-wrap:pretty;">Quản lý lớp: theo dõi bài nộp, điểm và giáo viên trên một dashboard</h3>
+        <p style="font-size:15.5px; line-height:1.65; color:rgba(14,33,73,.7); margin:0 0 18px;">Nhìn một chỗ là biết lớp nào chưa nộp bài, band đang lên hay xuống, giáo viên nào chấm bao nhiêu và điểm giữa các lớp có đồng đều không.</p>
+        <div style="display:grid; gap:10px;">
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Bảng điểm lớp cập nhật ngay khi chấm xong</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Báo cáo tiến bộ từng học viên</span></div>
+          <div style="display:flex; gap:10px; font-size:15px; line-height:1.6; color:rgba(14,33,73,.75);"><span style="width:5px; height:5px; border-radius:50%; background:#1D1B7F; margin-top:9px; flex-shrink:0;"></span><span>Dashboard giáo viên: số bài chấm, giờ tiết kiệm, mức nhất quán</span></div>
+        </div>
+        <a href="Giao Bai Tap.dc.html" style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#1D1B7F; display:inline-flex; align-items:center; gap:8px; margin-top:20px; padding-bottom:3px; border-bottom:2px solid rgba(29,27,127,.25);" style-hover="color:#3B49D8; border-bottom:2px solid #3B49D8;">Xem LMS cho trung tâm →</a>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- [04] VÌ SAO KHÁC BIỆT -->
+<section id="khac-biet" style="padding:88px 40px 56px; background:linear-gradient(160deg,#0E2149 0%,#131A5C 100%);">
+  <div style="max-width:1140px; margin:0 auto;">
+    <div style="margin-bottom:16px; text-align:center;"><span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.65);">Vì sao khác biệt</span></div>
+    <h2 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(26px,2.9vw,40px); line-height:1.18; margin:0 auto 44px; color:#fff; max-width:26ch; text-align:center; text-wrap:pretty;">Vì sao IELTS Smart <span style="color:#4BC4F9;">khác biệt?</span></h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-bottom:56px;">
+      <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09); border-radius:6px; overflow:hidden; transition:transform .25s, border-color .25s; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;" style-hover="transform:translateY(-4px); border-color:rgba(75,196,249,.35);"><div style="height:3px; background:#4BC4F9;"></div><div style="padding:28px;"><div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:17.5px; color:#fff; margin-bottom:8px;">AI biết mình không chắc</div><p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.65); margin:0;">Tự đo độ tin cậy từng kết quả và chuyển bài rủi ro cho giáo viên — AI chấm thông thường chỉ cho band.</p></div></div>
+      <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09); border-radius:6px; overflow:hidden; transition:transform .25s, border-color .25s; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;" style-hover="transform:translateY(-4px); border-color:rgba(75,196,249,.35);"><div style="height:3px; background:#3B49D8;"></div><div style="padding:28px;"><div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:17.5px; color:#fff; margin-bottom:8px;">Trung tâm kiểm soát được chất lượng</div><p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.65); margin:0;">So kết quả giáo viên với AI, dashboard theo lớp, giáo viên và cơ sở.</p></div></div>
+      <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09); border-radius:6px; overflow:hidden; transition:transform .25s, border-color .25s; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;" style-hover="transform:translateY(-4px); border-color:rgba(75,196,249,.35);"><div style="height:3px; background:#00B89C;"></div><div style="padding:28px;"><div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:17.5px; color:#fff; margin-bottom:8px;">Nền tảng 0đ, chỉ trả phần AI chấm</div><p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.65); margin:0;">Không có gói cố định; dùng ít trả ít. PTIT bảo trợ công nghệ.</p></div></div>
+    </div>
+
+    <div style="margin-bottom:0; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;">
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:center;">
+        <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#fff; white-space:nowrap;">Học viên nộp bài</span>
+        <span style="color:rgba(255,255,255,.4); font-size:16px;">→</span>
+        <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#fff; white-space:nowrap;">AI chấm + đo độ tin cậy</span>
+        <span style="color:rgba(255,255,255,.4); font-size:16px;">→</span>
+        <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#fff; white-space:nowrap;">Giáo viên kiểm duyệt</span>
+        <span style="color:rgba(255,255,255,.4); font-size:16px;">→</span>
+        <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15.5px; color:#fff; white-space:nowrap;">Trả kết quả học viên</span>
+      </div>
+      <div style="font-size:14.5px; color:rgba(255,255,255,.65); margin-top:12px; text-align:center;">Trung tâm có thể tùy chỉnh: cho AI trả kết quả ngay khi đủ tin cậy, hoặc yêu cầu mọi bài đều qua giáo viên.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- [04b] BẢNG SO SÁNH -->
+<section id="so-sanh" style="padding:96px 40px; background:#F9FAFB;">
+  <div style="max-width:1140px; margin:0 auto;">
+    <div style="animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 30%;">
+      <div style="display:grid; grid-template-columns:minmax(120px,0.85fr) 1fr 1.25fr 1fr; background:#fff; border:1px solid rgba(14,33,73,.08); border-radius:14px; box-shadow:0 28px 64px rgba(14,33,73,.1); overflow:hidden;">
+        <div style="padding:14px 16px;"></div>
+        <div style="padding:14px 16px;">
+          <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:11.5px; letter-spacing:.1em; color:rgba(14,33,73,.55);">CHẤM TAY &amp; CÔNG CỤ RỜI</div>
+          <div style="font-size:12px; color:rgba(14,33,73,.45); margin-top:3px;">Cách làm truyền thống</div>
+        </div>
+        <div style="padding:14px 16px; background:linear-gradient(160deg,#1D1B7F 0%,#131A5C 100%); display:flex; align-items:center; gap:10px;"><img src="logo-ielts-smart.jpg" alt="" style="width:20px; height:20px; border-radius:4px;"><span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:.1em; color:#fff;">IELTS SMART</span></div>
+        <div style="padding:14px 16px;">
+          <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:11.5px; letter-spacing:.1em; color:rgba(14,33,73,.55);">AI CHẤM THÔNG THƯỜNG</div>
+          <div style="font-size:12px; color:rgba(14,33,73,.45); margin-top:3px;">Chỉ cho band, không kiểm định</div>
+        </div>
+        <div style="padding:11px 16px; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.06em; color:rgba(14,33,73,.5); text-transform:uppercase; border-top:1px solid rgba(14,33,73,.07);">Tốc độ &amp; độ chính xác</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Chấm tay 10–20 phút một bài, trả sau 2–3 ngày</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:#fff; font-weight:600; background:#131A5C; border-top:1px solid rgba(255,255,255,.12); display:flex; gap:8px;"><span style="color:#4BC4F9; font-weight:700; flex-shrink:0;">✓</span><span>Kết quả sau ~2 phút, khớp giáo viên giỏi 92%</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Cho band nhanh nhưng không biết mình chắc đến đâu</span></div>
+        <div style="padding:11px 16px; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.06em; color:rgba(14,33,73,.5); text-transform:uppercase; border-top:1px solid rgba(14,33,73,.07);">Bài khó, bài rủi ro</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Không đo được độ tin cậy</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:#fff; font-weight:600; background:#131A5C; border-top:1px solid rgba(255,255,255,.12); display:flex; gap:8px;"><span style="color:#4BC4F9; font-weight:700; flex-shrink:0;">✓</span><span>AI tự đo độ tin cậy, chuyển bài rủi ro cho giáo viên</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Không chuyển bài rủi ro cho giáo viên</span></div>
+        <div style="padding:11px 16px; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.06em; color:rgba(14,33,73,.5); text-transform:uppercase; border-top:1px solid rgba(14,33,73,.07);">Chất lượng chấm</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Không so được giữa các giáo viên</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:#fff; font-weight:600; background:#131A5C; border-top:1px solid rgba(255,255,255,.12); display:flex; gap:8px;"><span style="color:#4BC4F9; font-weight:700; flex-shrink:0;">✓</span><span>So giáo viên với AI, dashboard theo lớp và cơ sở</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Không có quản trị chất lượng theo cơ sở</span></div>
+        <div style="padding:11px 16px; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.06em; color:rgba(14,33,73,.5); text-transform:uppercase; border-top:1px solid rgba(14,33,73,.07);">Thi thử</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Không tổ chức được thi thử quy mô lớn</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:#fff; font-weight:600; background:#131A5C; border-top:1px solid rgba(255,255,255,.12); display:flex; gap:8px;"><span style="color:#4BC4F9; font-weight:700; flex-shrink:0;">✓</span><span>Phòng thi ảo, hàng nghìn lượt thi cùng lúc</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Chỉ chấm bài rời, không có phòng thi thử</span></div>
+        <div style="padding:11px 16px; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.06em; color:rgba(14,33,73,.5); text-transform:uppercase; border-top:1px solid rgba(14,33,73,.07);">Chi phí</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Trả lương giờ chấm cho giáo viên</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:#fff; font-weight:600; background:#131A5C; border-top:1px solid rgba(255,255,255,.12); display:flex; gap:8px;"><span style="color:#4BC4F9; font-weight:700; flex-shrink:0;">✓</span><span>Nền tảng 0đ, chỉ trả phần AI chấm bài</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Trả phí gói cố định, dùng ít vẫn trả đủ</span></div>
+        <div style="padding:11px 16px; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.06em; color:rgba(14,33,73,.5); text-transform:uppercase; border-top:1px solid rgba(14,33,73,.07);">Bảo trợ công nghệ</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.4); border-top:1px solid rgba(14,33,73,.07);">—</div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:#fff; font-weight:600; background:#131A5C; border-top:1px solid rgba(255,255,255,.12); display:flex; gap:8px;"><span style="color:#4BC4F9; font-weight:700; flex-shrink:0;">✓</span><span>PTIT bảo trợ công nghệ</span></div><div style="padding:11px 16px; font-size:13px; line-height:1.5; color:rgba(14,33,73,.6); border-top:1px solid rgba(14,33,73,.07); display:flex; gap:8px;"><span style="color:rgba(14,33,73,.3); flex-shrink:0;">✕</span><span>Không có đơn vị công nghệ bảo trợ</span></div>
+        <div style="border-top:1px solid rgba(14,33,73,.07);"></div><div style="border-top:1px solid rgba(14,33,73,.07);"></div>
+        <div style="background:linear-gradient(160deg,#131A5C 0%,#1D1B7F 100%); border-top:1px solid rgba(255,255,255,.12); padding:14px 16px; text-align:center;"><a href="#cham-thu" style="background:#4BC4F9; color:#0E2149; font-weight:600; font-size:14px; padding:10px 20px; border-radius:6px; display:inline-block; transition:transform .2s, box-shadow .2s, background .2s;" style-hover="background:#fff; color:#0E2149; transform:translateY(-2px); box-shadow:0 10px 22px rgba(75,196,249,.35);">Đặt lịch demo ngay</a></div>
+        <div style="border-top:1px solid rgba(14,33,73,.07);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [4b] THI ẢO NHƯ THẬT -->
+<!-- [05] ĐỐI TÁC -->
+<section id="doi-tac" style="padding:96px 0 88px; background:linear-gradient(180deg,#FFFFFF 0%,#F3F7FE 55%,#FFFFFF 100%); position:relative; overflow:hidden;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute; top:18px; left:0; width:100%; height:60px; pointer-events:none;"><path d="M-40,34 C240,14 480,50 760,30 C1040,12 1240,46 1480,22" fill="none" stroke="#3B49D8" stroke-width="1.4" stroke-linecap="round" opacity="0.2" pathLength="1000" stroke-dasharray="220 780" style="animation:lineFlow 11s linear infinite; animation-delay:0s;"></path></svg>
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute; bottom:58%; left:0; width:100%; height:60px; pointer-events:none;"><path d="M-40,20 C300,44 560,8 860,34 C1120,52 1300,14 1480,38" fill="none" stroke="#4BC4F9" stroke-width="1.4" stroke-linecap="round" opacity="0.24" pathLength="1000" stroke-dasharray="190 810" style="animation:lineFlow 14s linear infinite; animation-delay:-5s;"></path></svg>
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute; bottom:34%; left:0; width:100%; height:60px; pointer-events:none;"><path d="M-40,40 C260,18 520,52 820,26 C1100,6 1290,44 1480,20" fill="none" stroke="#00B89C" stroke-width="1.4" stroke-linecap="round" opacity="0.18" pathLength="1000" stroke-dasharray="240 760" style="animation:lineFlow 17s linear infinite; animation-delay:-9s;"></path></svg>
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute; bottom:12px; left:0; width:100%; height:60px; pointer-events:none;"><path d="M-40,28 C320,46 600,12 900,30 C1140,44 1320,16 1480,32" fill="none" stroke="#3B49D8" stroke-width="1.4" stroke-linecap="round" opacity="0.16" pathLength="1000" stroke-dasharray="200 800" style="animation:lineFlow 13s linear infinite; animation-delay:-3s;"></path></svg>
+  <div style="max-width:1140px; margin:0 auto; padding:0 40px; position:relative;">
+    <h2 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(26px,3vw,42px); line-height:1.2; margin:0 auto 52px; max-width:30ch; text-align:center; text-wrap:pretty;">IELTS SMART — đối tác của <span style="background:linear-gradient(100deg,#1D1B7F 0%,#3B49D8 45%,#0092C8 100%); -webkit-background-clip:text; background-clip:text; color:transparent;">58 trung tâm tiếng Anh</span></h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-bottom:64px;">
+      <div style="position:relative; overflow:hidden; background:rgba(255,255,255,.85); backdrop-filter:blur(6px); border:1px solid rgba(29,27,127,.1); border-radius:14px; padding:32px 24px 28px; text-align:center; box-shadow:0 16px 40px rgba(14,33,73,.07); transition:transform .25s, box-shadow .25s; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;" style-hover="transform:translateY(-4px); box-shadow:0 22px 48px rgba(14,33,73,.11);"><div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#1D1B7F,#3B49D8);"></div><div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(34px,3.4vw,44px); line-height:1.1; background:linear-gradient(120deg,#1D1B7F,#3B49D8); -webkit-background-clip:text; background-clip:text; color:transparent;">58</div><div style="font-size:14.5px; color:rgba(14,33,73,.65); margin-top:6px;">trung tâm đối tác</div></div>
+      <div style="position:relative; overflow:hidden; background:rgba(255,255,255,.85); backdrop-filter:blur(6px); border:1px solid rgba(29,27,127,.1); border-radius:14px; padding:32px 24px 28px; text-align:center; box-shadow:0 16px 40px rgba(14,33,73,.07); transition:transform .25s, box-shadow .25s; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;" style-hover="transform:translateY(-4px); box-shadow:0 22px 48px rgba(14,33,73,.11);"><div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#3B49D8,#4BC4F9);"></div><div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(34px,3.4vw,44px); line-height:1.1; background:linear-gradient(120deg,#3B49D8,#0092C8); -webkit-background-clip:text; background-clip:text; color:transparent;">15.000+</div><div style="font-size:14.5px; color:rgba(14,33,73,.65); margin-top:6px;">bài thi được AI chấm</div></div>
+      <div style="position:relative; overflow:hidden; background:rgba(255,255,255,.85); backdrop-filter:blur(6px); border:1px solid rgba(29,27,127,.1); border-radius:14px; padding:32px 24px 28px; text-align:center; box-shadow:0 16px 40px rgba(14,33,73,.07); transition:transform .25s, box-shadow .25s; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;" style-hover="transform:translateY(-4px); box-shadow:0 22px 48px rgba(14,33,73,.11);"><div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#4BC4F9,#00B89C);"></div><div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(34px,3.4vw,44px); line-height:1.1; background:linear-gradient(120deg,#0092C8,#00947E); -webkit-background-clip:text; background-clip:text; color:transparent;">5.000+</div><div style="font-size:14.5px; color:rgba(14,33,73,.65); margin-top:6px;">học viên trên hệ thống</div></div>
+    </div>
+  </div>
+  <div style="overflow:hidden; position:relative; -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);">
+    <div style="display:flex; gap:56px; width:max-content; animation:marquee 36s linear infinite; align-items:center; padding:8px 0;">
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">ANH NGỮ MINH ANH</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">IELTS ONE HÀ NỘI</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">SMARTZ ENGLISH</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">EDUPATH ACADEMY</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">ANH NGỮ SAO VIỆT</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">BRIGHT PATH IELTS</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">TÂN VĂN ENGLISH</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">OCEAN EDU ĐÀ NẴNG</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">GLOBAL LINK CENTER</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">ANH NGỮ HOÀNG GIA</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">ANH NGỮ MINH ANH</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">IELTS ONE HÀ NỘI</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">SMARTZ ENGLISH</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">EDUPATH ACADEMY</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">ANH NGỮ SAO VIỆT</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">BRIGHT PATH IELTS</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">TÂN VĂN ENGLISH</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">OCEAN EDU ĐÀ NẴNG</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">GLOBAL LINK CENTER</span>
+      <span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:17px; letter-spacing:.02em; color:rgba(14,33,73,.42); white-space:nowrap;">ANH NGỮ HOÀNG GIA</span>
+    </div>
+  </div>
+  <div style="text-align:center; font-size:14px; color:rgba(14,33,73,.55); margin-top:36px; padding:0 40px;">PTIT bảo trợ công nghệ · VTV1 – Chuyển động 24h · Báo Sinh viên Việt Nam · Trang tin PTIT</div>
+</section>
+
+<!-- [05b] CÂU CHUYỆN KHÁCH HÀNG -->
+<section id="khach-hang" style="padding:104px 40px; background:#fff; position:relative; overflow:hidden;">
+  <div aria-hidden="true" style="position:absolute; top:-160px; left:-160px; width:480px; height:480px; border-radius:50%; background:#3B49D8; opacity:.06; filter:blur(90px); animation:blobDrift 18s ease-in-out infinite; pointer-events:none;"></div>
+  <div aria-hidden="true" style="position:absolute; bottom:-180px; right:-140px; width:520px; height:520px; border-radius:50%; background:#4BC4F9; opacity:.08; filter:blur(100px); animation:blobDrift 22s ease-in-out infinite reverse; pointer-events:none;"></div>
+  <div style="max-width:1140px; margin:0 auto 48px; position:relative;">
+    <h2 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(28px,3.2vw,42px); line-height:1.18; letter-spacing:-0.015em; margin:0; color:#0E2149; text-wrap:balance;">Đối tác nói gì về <span style="background:linear-gradient(90deg,#1D1B7F 0%,#2E6FE0 55%,#1F9FD8 100%); -webkit-background-clip:text; background-clip:text; color:transparent;">chúng tôi</span></h2>
+  </div>
+  <div style="max-width:1140px; margin:0 auto; position:relative; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(36px,5vw,72px); align-items:center;">
+    <div style="position:relative; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 0% entry 40%;">
+      <div aria-hidden="true" style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:120px; line-height:.8; height:60px; background:linear-gradient(135deg,#1D1B7F,#4BC4F9); -webkit-background-clip:text; background-clip:text; color:transparent; opacity:.35;">&ldquo;</div>
+      <blockquote style="margin:0; font-family:'Be Vietnam Pro',sans-serif; font-weight:500; font-size:clamp(19px,1.75vw,23px); line-height:1.65; color:#0E2149; text-wrap:pretty;">Trước đây, mỗi giáo viên phụ trách ba lớp là đã khá căng vì phải tự giao bài, thu bài rồi chấm và trả bài cho từng học viên. Khi đưa IELTS Smart vào sử dụng, các công việc này được quản lý tập trung trên một hệ thống, còn AI hỗ trợ xử lý phần chấm bài. Nhờ đó, giáo viên có thể phụ trách năm lớp mà vẫn trả bài đúng hạn và không bị quá tải như trước.</blockquote>
+    </div>
+    <figure style="margin:0; animation:revealUp linear both; animation-timeline:view(); animation-range:entry 5% entry 45%;">
+      <div style="position:relative;">
+        <div aria-hidden="true" style="position:absolute; inset:16px -14px -14px 16px; border-radius:18px; background:linear-gradient(135deg,rgba(29,27,127,.14),rgba(75,196,249,.2));"></div>
+        <div style="position:relative; background:#fff; border:1px solid rgba(14,33,73,.08); border-radius:18px; padding:10px; box-shadow:0 26px 54px rgba(14,33,73,.12);">
+          <img src="shots/classeng-chi-huong.jpg" alt="Chị Hương, founder Trung tâm Anh ngữ CLASSENG" style="display:block; width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 30%; border-radius:10px;">
+        </div>
+      </div>
+      <figcaption style="margin-top:22px; font-size:15.5px; color:rgba(14,33,73,.72); text-align:center;"><span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; color:#0E2149;">chị Hương</span> - founder của Trung tâm Anh ngữ CLASSENG</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- [06] FAQ -->
+<section id="hoi-dap" style="padding:104px 40px; background:#F9FAFB;">
+  <div style="max-width:760px; margin:0 auto;">
+    <h2 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:clamp(24px,2.6vw,36px); line-height:1.2; margin:0 0 36px; text-align:center; text-wrap:pretty;">Câu hỏi thường gặp về chấm IELTS bằng AI</h2>
+    <div style="border-top:1px solid rgba(14,33,73,.1);">
+      <div style="border-bottom:1px solid rgba(14,33,73,.1);">
+        <button onClick="{{ t0 }}" style="width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; background:none; border:none; cursor:pointer; padding:20px 0; text-align:left; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:16.5px; color:#0E2149;">AI chấm IELTS sai thì sao?<span style="font-size:20px; color:rgba(14,33,73,.45); flex-shrink:0;">{{ i0 }}</span></button>
+        <sc-if value="{{ o0 }}" hint-placeholder-val="{{ false }}"><p style="font-size:15px; line-height:1.65; color:rgba(14,33,73,.7); margin:0; padding:0 32px 20px 0;">AI tự đo độ tin cậy của từng kết quả. Bài chưa chắc được chuyển cho giáo viên duyệt. Trung tâm cũng có thể bật chế độ mọi bài đều qua giáo viên. Mọi lần sửa band đều được lưu lại.</p></sc-if>
+      </div>
+      <div style="border-bottom:1px solid rgba(14,33,73,.1);">
+        <button onClick="{{ t1 }}" style="width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; background:none; border:none; cursor:pointer; padding:20px 0; text-align:left; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:16.5px; color:#0E2149;">Chấm bằng IELTS Smart khác gì dùng ChatGPT?<span style="font-size:20px; color:rgba(14,33,73,.45); flex-shrink:0;">{{ i1 }}</span></button>
+        <sc-if value="{{ o1 }}" hint-placeholder-val="{{ false }}"><p style="font-size:15px; line-height:1.65; color:rgba(14,33,73,.7); margin:0; padding:0 32px 20px 0;">ChatGPT cho band nhưng không cho biết khi nào nó sai, không lưu lịch sử, không có lớp học. IELTS Smart chấm theo 4 tiêu chí, tự đo độ tin cậy, có giáo viên duyệt và dashboard theo lớp.</p></sc-if>
+      </div>
+      <div style="border-bottom:1px solid rgba(14,33,73,.1);">
+        <button onClick="{{ t2 }}" style="width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; background:none; border:none; cursor:pointer; padding:20px 0; text-align:left; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:16.5px; color:#0E2149;">Dữ liệu học viên có an toàn không?<span style="font-size:20px; color:rgba(14,33,73,.45); flex-shrink:0;">{{ i2 }}</span></button>
+        <sc-if value="{{ o2 }}" hint-placeholder-val="{{ false }}"><p style="font-size:15px; line-height:1.65; color:rgba(14,33,73,.7); margin:0; padding:0 32px 20px 0;">Dữ liệu được lưu trữ và mã hoá an toàn; chỉ trung tâm và giáo viên được phân quyền mới xem được bài và điểm của học viên.</p></sc-if>
+      </div>
+      <div style="border-bottom:1px solid rgba(14,33,73,.1);">
+        <button onClick="{{ t3 }}" style="width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; background:none; border:none; cursor:pointer; padding:20px 0; text-align:left; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:16.5px; color:#0E2149;">Trung tâm dưới 30 học viên có dùng được không?<span style="font-size:20px; color:rgba(14,33,73,.45); flex-shrink:0;">{{ i3 }}</span></button>
+        <sc-if value="{{ o3 }}" hint-placeholder-val="{{ false }}"><p style="font-size:15px; line-height:1.65; color:rgba(14,33,73,.7); margin:0; padding:0 32px 20px 0;">Có. Nền tảng miễn phí, trung tâm chỉ trả theo số bài AI chấm.</p></sc-if>
+      </div>
+      <div style="border-bottom:1px solid rgba(14,33,73,.1);">
+        <button onClick="{{ t4 }}" style="width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; background:none; border:none; cursor:pointer; padding:20px 0; text-align:left; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:16.5px; color:#0E2149;">Ngoài chấm bài, có giao bài và thi thử không?<span style="font-size:20px; color:rgba(14,33,73,.45); flex-shrink:0;">{{ i4 }}</span></button>
+        <sc-if value="{{ o4 }}" hint-placeholder-val="{{ false }}"><p style="font-size:15px; line-height:1.65; color:rgba(14,33,73,.7); margin:0; padding:0 32px 20px 0;">Có, miễn phí: giao bài, kho đề, phòng thi ảo, test đầu vào và bảng điểm lớp.</p></sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [07] CHẤM THỬ MIỄN PHÍ -->
+<section id="cham-thu" style="padding:104px 40px; background:#fff;">
+  <div style="max-width:1140px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); border-radius:20px; overflow:hidden; box-shadow:0 30px 60px rgba(14,33,73,.12); border:1px solid rgba(14,33,73,.06);">
+    <div style="position:relative; overflow:hidden; background:linear-gradient(160deg,#0E2149 0%,#1D1B7F 100%); color:#fff; padding:clamp(36px,5vw,64px); display:flex; flex-direction:column; gap:28px;">
+      <div aria-hidden="true" style="position:absolute; right:-120px; bottom:-120px; width:340px; height:340px; border-radius:50%; background:#4BC4F9; opacity:.14; filter:blur(60px); animation:blobDrift 18s ease-in-out infinite; pointer-events:none;"></div>
+      <h2 style="position:relative; font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:clamp(26px,2.8vw,38px); line-height:1.22; margin:0; text-wrap:pretty;">Chấm thử miễn phí, song song với <span style="color:#4BC4F9;">giáo viên của bạn</span></h2>
+      <p style="position:relative; font-size:16.5px; line-height:1.7; color:rgba(255,255,255,.82); margin:0; text-wrap:pretty;">Buổi tư vấn 45 phút: chúng tôi chấm cùng một bộ bài với giáo viên trung tâm để bạn tự so kết quả, rồi thiết lập lớp thử nghiệm miễn phí.</p>
+      <div style="position:relative; display:grid; gap:14px; padding-top:24px; border-top:1px solid rgba(255,255,255,.14);">
+        <div style="display:flex; gap:12px; align-items:center; font-size:15.5px; color:#fff;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(75,196,249,.18); color:#4BC4F9; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px; font-weight:700;">✓</span><span>Demo trên đúng bài của học viên bạn</span></div>
+        <div style="display:flex; gap:12px; align-items:center; font-size:15.5px; color:#fff;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(75,196,249,.18); color:#4BC4F9; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px; font-weight:700;">✓</span><span>Lớp thử nghiệm miễn phí</span></div>
+        <div style="display:flex; gap:12px; align-items:center; font-size:15.5px; color:#fff;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(75,196,249,.18); color:#4BC4F9; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px; font-weight:700;">✓</span><span>Hỗ trợ kỹ thuật qua Zalo riêng, phản hồi trong 24 giờ</span></div>
+      </div>
+    </div>
+    <div style="background:#fff; padding:clamp(32px,4.5vw,56px);">
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; gap:22px;">
+          <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:20px; color:#0E2149; padding-bottom:18px; border-bottom:1px solid rgba(14,33,73,.08);">Đặt lịch chấm thử</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;">
+          <div>
+            <label style="display:block; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:14px; color:#0E2149; margin-bottom:8px;">Họ và tên <span style="color:#B03A3A; font-weight:500;">*</span></label>
+            <input type="text" placeholder="Nguyễn Văn A" value="{{ vName }}" onChange="{{ onName }}" style="{{ stName }}"></input>
+            <sc-if value="{{ eName }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#B03A3A; margin-top:6px;">{{ eName }}</div></sc-if>
+          </div>
+          <div>
+            <label style="display:block; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:14px; color:#0E2149; margin-bottom:8px;">Tên trung tâm <span style="color:#B03A3A; font-weight:500;">*</span></label>
+            <input type="text" placeholder="Anh ngữ ABC" value="{{ vCenter }}" onChange="{{ onCenter }}" style="{{ stCenter }}"></input>
+            <sc-if value="{{ eCenter }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#B03A3A; margin-top:6px;">{{ eCenter }}</div></sc-if>
+          </div>
+          </div>
+          <div>
+            <label style="display:block; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:14px; color:#0E2149; margin-bottom:8px;">Số học viên <span style="color:#B03A3A; font-weight:500;">*</span></label>
+            <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px; padding:4px; background:#F1F3F8; border-radius:8px; border:1px solid rgba(14,33,73,.08);">
+              <sc-for list="{{ sizeOpts }}" as="o" hint-placeholder-count="4">
+                <button type="button" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ eSize }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#B03A3A; margin-top:6px;">{{ eSize }}</div></sc-if>
+          </div>
+          <div>
+            <label style="display:block; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:14px; color:#0E2149; margin-bottom:8px;">Nhu cầu hiện tại <span style="font-weight:400; color:rgba(14,33,73,.55);">(chọn nhiều)</span></label>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px;">
+              <sc-for list="{{ needChips }}" as="c" hint-placeholder-count="4">
+                <button type="button" onClick="{{ c.toggle }}" style="{{ c.style }}"><span style="{{ c.box }}">{{ c.mark }}</span><span>{{ c.label }}</span></button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;">
+          <div>
+            <label style="display:block; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:14px; color:#0E2149; margin-bottom:8px;">Email <span style="color:#B03A3A; font-weight:500;">*</span></label>
+            <input type="email" placeholder="ban@trungtam.vn" value="{{ vEmail }}" onChange="{{ onEmail }}" style="{{ stEmail }}"></input>
+            <sc-if value="{{ eEmail }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#B03A3A; margin-top:6px;">{{ eEmail }}</div></sc-if>
+          </div>
+          <div>
+            <label style="display:block; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:14px; color:#0E2149; margin-bottom:8px;">Số điện thoại / Zalo <span style="color:#B03A3A; font-weight:500;">*</span></label>
+            <input type="tel" placeholder="09xx xxx xxx" value="{{ vPhone }}" onChange="{{ onPhone }}" style="{{ stPhone }}"></input>
+            <sc-if value="{{ ePhone }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#B03A3A; margin-top:6px;">{{ ePhone }}</div></sc-if>
+          </div>
+          </div>
+          <button type="button" onClick="{{ submit }}" style="{{ stSubmit }}">{{ submitLabel }}</button>
+          <div style="font-size:13.5px; color:rgba(14,33,73,.6); text-align:center;">Bằng việc gửi, bạn đồng ý để IELTS Smart liên hệ tư vấn.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="min-height:420px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:14px;">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(0,184,156,.12); color:#00B89C; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:700;">✓</div>
+          <h3 style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:24px; margin:0;">Đã nhận yêu cầu</h3>
+          <p style="font-size:15.5px; line-height:1.65; color:rgba(14,33,73,.7); margin:0; max-width:36ch;">IELTS Smart sẽ liên hệ qua Zalo hoặc số điện thoại bạn để lại để hẹn lịch chấm thử.</p>
+          <button type="button" onClick="{{ reset }}" style="background:none; border:none; color:#1D1B7F; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15px; cursor:pointer; padding:8px;">Gửi yêu cầu khác</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<!-- [17] FOOTER -->
+<footer style="background:linear-gradient(180deg,#0E2149 0%,#091530 100%); color:rgba(255,255,255,.75); padding:72px 24px 32px;">
+  <div style="max-width:1360px; margin:0 auto;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:36px;">
+          <img src="logo-ielts-smart.jpg" alt="IELTS SMART" style="width:40px; height:40px; border-radius:8px; display:block;"><span style="font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:20px; color:#fff;">IELTS <span style="color:#fff;">SMART</span></span>
+        </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr)); gap:32px; margin-bottom:40px;">
+      <div style="min-width:0;">
+        <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15px; color:#fff; margin-bottom:16px;">Giải pháp</div>
+        <div style="display:grid; gap:10px; font-size:14.5px; line-height:1.5;">
+          <a href="Cham Bai AI.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Chấm IELTS bằng AI</a>
+          <a href="Giao Bai Tap.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">LMS cho trung tâm</a>
+          <a href="Giai Phap.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Test đầu vào &amp; thi thử</a>
+          <a href="Bang Gia.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Bảng giá</a>
+        </div>
+      </div>
+      <div style="min-width:0;">
+        <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15px; color:#fff; margin-bottom:16px;">Công ty</div>
+        <div style="display:grid; gap:10px; font-size:14.5px; line-height:1.5;">
+          <a href="Tai Nguyen.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Về chúng tôi</a>
+          <a href="Blog.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Blog</a>
+          <a href="Tai Nguyen.dc.html#lien-he" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Liên hệ</a>
+          <a href="Tai Nguyen.dc.html#huong-dan-su-dung" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Hướng dẫn sử dụng</a>
+        </div>
+      </div>
+      <div style="min-width:0;">
+        <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15px; color:#fff; margin-bottom:16px;">Chính sách</div>
+        <div style="display:grid; gap:10px; font-size:14.5px; line-height:1.5;">
+          <a href="#" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Điều kiện giao dịch chung</a>
+          <a href="#" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Bảo mật thông tin</a>
+          <a href="#" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Thanh toán &amp; hoàn tiền</a>
+          <a href="#" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Xử lý khiếu nại</a>
+        </div>
+      </div>
+      <div style="min-width:0;">
+        <div style="font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:15px; color:#fff; margin-bottom:16px;">Liên hệ</div>
+        <div style="display:grid; gap:10px; font-size:14.5px; line-height:1.5;">
+          <span style="color:rgba(255,255,255,.7);"><a href="tel:0374168445" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">037 416 8445</a> · <a href="https://zalo.me/0374168445" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Zalo</a></span>
+          <span style="color:rgba(255,255,255,.7);">Công ty CP Công nghệ NOVAFORGE</span>
+          <span style="color:rgba(255,255,255,.7);">GPKD 0111498091</span>
+          <a href="Hoc Sinh.dc.html" style="color:rgba(255,255,255,.7);" style-hover="color:#4BC4F9;">Học sinh: Bộ đề &amp; phòng thi ảo IELTS88</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.12); padding-top:24px; font-size:14px; color:rgba(255,255,255,.6);">© 2026 IELTS Smart · Đã thông báo Bộ Công Thương</div>
+  </div>
+</footer>
+
+<!-- [18] FLOATING ZALO -->
+<sc-if value="{{ showZalo }}" hint-placeholder-val="{{ false }}">
+  <a href="https://zalo.me/0374168445" target="_blank" rel="noopener" aria-label="Nhắn Zalo" style="position:fixed; right:24px; bottom:24px; z-index:60; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,#1D1B7F 0%,#3B49D8 100%); color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 12px 32px rgba(14,33,73,.3);" style-hover="background:#0E2149; color:#fff;">Zalo</a>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;showAnnouncement&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hiển thị&quot;},
+  &quot;showPlaceholderBadges&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hiển thị&quot;},
+  &quot;showFloatingZalo&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hiển thị&quot;}
+}">
+class Component extends DCLogic {
+  state = { scrolled: false, compact: false, open: 0, menu: null, f: { name: '', center: '', size: '', needs: [], email: '', phone: '' }, err: {}, sending: false, sent: false };
+  componentDidMount() {
+    const dirs = { 'hf-tl': [-1, -0.6, 6], 'hf-tr': [1, -0.6, -6], 'hf-bl': [-1, 0.6, -6], 'hf-br': [1, 0.6, 6] };
+    let raf = null;
+    this._heroFly = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        const f = Math.min(window.scrollY / 420, 1), d = f * 300;
+        for (const id in dirs) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const [dx, dy, rot] = dirs[id];
+          el.style.transform = 'translate(' + (dx * d) + 'px,' + (dy * d) + 'px) rotate(' + rot + 'deg)';
+          el.style.opacity = String(Math.max(0, 0.3 * (1 - f)));
+        }
+      });
+    };
+    window.addEventListener('scroll', this._heroFly, { passive: true });
+    this._onScroll = () => { const s = window.scrollY > 560, c = window.scrollY > 40; if (s !== this.state.scrolled || c !== this.state.compact) this.setState({ scrolled: s, compact: c }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); window.removeEventListener('scroll', this._heroFly); }
+  setF(k, v) { this.setState(s => ({ f: { ...s.f, [k]: v }, err: { ...s.err, [k]: null } })); }
+  validate() {
+    const f = this.state.f, err = {};
+    if (!f.name.trim()) err.name = 'Vui lòng nhập tên của bạn.';
+    if (!f.center.trim()) err.center = 'Vui lòng nhập tên trung tâm.';
+    if (!f.size) err.size = 'Vui lòng chọn quy mô.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) err.email = 'Vui lòng nhập email hợp lệ.';
+    if (!/^(09|03|07|05|08)\d{8}$/.test(f.phone.replace(/[\s.\-]/g, ''))) err.phone = 'Vui lòng nhập số điện thoại Việt Nam hợp lệ (09/03/07/05/08, 10 chữ số).';
+    return err;
+  }
+  renderVals() {
+    const p = this.props, st = this.state, f = st.f, err = st.err;
+    const inputStyle = (bad) => ({ width: '100%', boxSizing: 'border-box', height: '50px', borderRadius: '8px', border: bad ? '1px solid #B03A3A' : '1px solid rgba(14,33,73,.16)', background: '#fff', padding: '0 14px', fontSize: '15px', outline: 'none', fontFamily: 'Manrope, sans-serif', color: '#0E2149', transition: 'border-color .15s, box-shadow .15s' });
+    const needLabels = ['Cần cả hệ thống thi thử và chấm bài định kỳ', 'Chỉ cần chấm Writing & Speaking bằng AI', 'Cần test đầu vào & xếp lớp tự động', 'Cần dashboard quản lý năng suất'];
+    const needChips = needLabels.map(label => {
+      const on = f.needs.includes(label);
+      return {
+        label,
+        style: { display: 'flex', alignItems: 'flex-start', gap: '10px', border: on ? '1px solid #1D1B7F' : '1px solid rgba(14,33,73,.14)', background: on ? 'rgba(29,27,127,.05)' : '#fff', color: '#0E2149', fontFamily: 'Manrope, sans-serif', fontSize: '14.5px', fontWeight: 500, lineHeight: 1.45, padding: '13px 14px', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', transition: 'border-color .15s, background .15s' },
+        box: { width: '16px', height: '16px', borderRadius: '4px', flexShrink: 0, marginTop: '2px', border: on ? '1px solid #1D1B7F' : '1px solid rgba(14,33,73,.3)', background: on ? '#1D1B7F' : '#fff', color: '#fff', fontSize: '11px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+        mark: on ? '✓' : '',
+        toggle: () => this.setState(s => ({ f: { ...s.f, needs: s.f.needs.includes(label) ? s.f.needs.filter(x => x !== label) : [...s.f.needs, label] } }))
+      };
+    });
+    const vals = {
+      utilBar: { background: '#0E2149', padding: st.compact ? '3px 24px' : '8px 24px', fontSize: st.compact ? '12px' : '13.5px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', transition: 'padding .25s, font-size .25s' },
+      showAnnouncement: p.showAnnouncement ?? true,
+      showPh: p.showPlaceholderBadges ?? true,
+      showZalo: (p.showFloatingZalo ?? true) && st.scrolled,
+      sent: st.sent, notSent: !st.sent, sending: st.sending,
+      submitLabel: st.sending ? 'Đang gửi…' : 'Đặt lịch chấm thử',
+      sizeOpts: ['Dưới 20', '20–50', '50–200', 'Trên 200'].map(label => { const on = f.size === label; return { label, pick: () => this.setF('size', label), style: { height: '40px', borderRadius: '6px', border: 'none', background: on ? '#fff' : 'transparent', boxShadow: on ? '0 1px 3px rgba(14,33,73,.14)' : 'none', color: on ? '#1D1B7F' : 'rgba(14,33,73,.65)', fontFamily: 'Manrope, sans-serif', fontSize: '14px', fontWeight: on ? 700 : 500, cursor: 'pointer', transition: 'all .15s' } }; }),
+      vName: f.name, vCenter: f.center, vSize: f.size, vEmail: f.email, vPhone: f.phone,
+      onName: e => this.setF('name', e.target.value),
+      onCenter: e => this.setF('center', e.target.value),
+      onSize: e => this.setF('size', e.target.value),
+      onEmail: e => this.setF('email', e.target.value),
+      onPhone: e => this.setF('phone', e.target.value),
+      eName: err.name, eCenter: err.center, eSize: err.size, eEmail: err.email, ePhone: err.phone,
+      stName: inputStyle(err.name), stCenter: inputStyle(err.center), stEmail: inputStyle(err.email), stPhone: inputStyle(err.phone),
+      stSize: { ...inputStyle(err.size), appearance: 'auto' },
+      stSubmit: { width: '100%', background: st.sending ? 'rgba(29,27,127,.6)' : '#1D1B7F', color: '#fff', border: 'none', borderRadius: '8px', padding: '15px', letterSpacing: '.01em', boxShadow: '0 8px 18px rgba(29,27,127,.22)', fontFamily: 'Manrope, sans-serif', fontWeight: 600, fontSize: '16px', cursor: st.sending ? 'default' : 'pointer', transition: 'background .15s' },
+      needChips,
+      submit: () => { const e2 = this.validate(); if (Object.keys(e2).length) { this.setState({ err: e2 }); return; } this.setState({ sending: true }); setTimeout(() => this.setState({ sending: false, sent: true }), 900); },
+      reset: () => this.setState({ sent: false, f: { name: '', center: '', size: '', needs: [], email: '', phone: '' }, err: {} })
+    };
+    ['Giaiphap', 'Banggia', 'Tainguyen', 'Blog', 'Hocsinh'].forEach(name => {
+      vals['m' + name] = st.menu === name;
+      vals['enter' + name] = () => { clearTimeout(this._menuT); this.setState({ menu: name }); };
+    });
+    vals.leaveMenu = () => { clearTimeout(this._menuT); this._menuT = setTimeout(() => this.setState({ menu: null }), 150); };
+    vals.faqA0 = 'AI tự đo độ tin cậy cho từng kết quả: bài đủ chắc mới trả ngay, bài rủi ro tự động chuyển giáo viên kiểm định. Giáo viên luôn có quyền sửa band, thêm nhận xét — mọi thay đổi được lưu lại để đối chiếu.';
+    vals.faqA1 = 'ChatGPT trả lời khác nhau mỗi lần hỏi và không biết mình chắc đến đâu. IELTS Smart chấm theo rubric IELTS chuẩn hoá, kết quả nhất quán, tự đo độ tin cậy, và gắn liền với LMS — giao bài, quản lý lớp, dashboard chất lượng — chứ không phải dán từng bài vào khung chat.';
+    vals.faqA2 = 'Dữ liệu mỗi trung tâm tách riêng, phân quyền theo vai trò: giáo viên chỉ thấy lớp mình phụ trách. Bài làm và bản ghi âm của học viên không dùng cho mục đích nào khác ngoài chấm và báo cáo cho chính trung tâm.';
+    vals.faqA3 = 'Được. Không có gói cố định — trung tâm chỉ trả theo số bài AI chấm, phần LMS được tài trợ 100%, nên quy mô nhỏ dùng ít trả ít.';
+    for (let i = 0; i < 8; i++) {
+      vals['o' + i] = st.open === i;
+      vals['i' + i] = st.open === i ? '−' : '+';
+      vals['t' + i] = () => this.setState(s => ({ open: s.open === i ? -1 : i }));
+    }
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

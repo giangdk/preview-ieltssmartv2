@@ -1,0 +1,4 @@
+# File nén bản gốc — quá nặng cho GitHub (giới hạn 100MB/file)
+*.zip
+.DS_Store
+.vercel/
